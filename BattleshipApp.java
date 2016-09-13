@@ -28,28 +28,40 @@ public class BattleshipApp
 		for (Ship ship : board.ships)
 		{
 			System.out.println("Where would you like to place your "+ ship.name);
-			System.out.println("row start");
-			xStart = sc.nextInt();
-			System.out.println("col start");
-			yStart = sc.nextInt();
-			System.out.println("row end");
-			xEnd = sc.nextInt();
-			System.out.println("col end");
-			yEnd = sc.nextInt();
+			do{
+				System.out.println("row start");
+				xStart = sc.nextInt();
+				System.out.println("col start");
+				yStart = sc.nextInt();
+				System.out.println("row end");
+				xEnd = sc.nextInt();
+				System.out.println("col end");
+				yEnd = sc.nextInt();
+				ship.setPosition(xStart,yStart,xEnd,yEnd);
+			} while(checkInput(xStart,yStart,xEnd,yEnd,ship,board) == -1);
+			
 			ship.setPosition(xStart,yStart,xEnd,yEnd);
 			board.setShip(ship);
 			board.printBoard();
 		}
 
-		/*System.out.println("Where would you like to place your " + aircraftcarrier.name);
-		
-		
+	}
 
-		aircraftcarrier.setPosition(xStart,yStart,xEnd,yEnd);
-		board.addShip(aircraftcarrier);
-		board.printBoard();
-
-		System.out.println(aircraftcarrier.symbol);*/
-
+	public static int checkInput(int xStart,int yStart,int xEnd,int yEnd,Ship ship,Board board)
+	{
+		if (((xEnd-xStart+1)==ship.length && yEnd == yStart)||((yEnd-yStart+1)==ship.length && xEnd == xStart))
+			for (int i=0;i<ship.length;i++)
+			{
+				if(board.isOccupied(ship.getPosition(i,0),ship.getPosition(i,1))==0)
+					return 0;
+				else
+					System.out.println("This spot is occupied!");
+					return -1;
+			}
+			
+		else{
+			System.out.println("Error Input");
+		}
+		return -1;
 	}
 }

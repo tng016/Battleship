@@ -2,7 +2,7 @@ public class Board
 {
 	private final static int LENGTH = 10;
    private static int shipcount = 0;
-   private char[][] board = new char[10][10];
+   public char[][] board = new char[10][10];
    public Ship[] ships = new Ship[5];
    public char empty = '_';
 
@@ -40,5 +40,12 @@ public class Board
          board[x][y] = ship.symbol;
       }
       System.out.println("ship set!");
+   }
+
+   public int isOccupied(int x, int y){
+      if(board[x][y] == empty)
+         return 0;
+      else
+         return -1;
    }
 }
