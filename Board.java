@@ -1,20 +1,12 @@
 public class Board
 {
-	private static int LENGTH = 10;
+	private final static int LENGTH = 10;
+   private static int shipcount = 0;
    private char[][] board = new char[10][10];
-   public Battleship battleship;
-   public Aircraftcarrier aircraftcarrier;
-   public Submarineandcruiser submarine;
-   public Submarineandcruiser cruiser;
-   public Patrolship patrolship;
+   public Ship[] ships = new Ship[5];
    public char empty = '_';
-   public char bship = 'B';
-   public char air = 'A';
-   public char sub = 'S';
-   public char cru = 'C';
-   public char patrol = 'P';
 
-
+   //Constructor
    public Board(){
       for (int i=0;i<LENGTH;i++){
          for (int j=0;j<LENGTH;j++){
@@ -23,7 +15,7 @@ public class Board
       }
    }
 
-
+   //Prints what is on the board now
 	public void printBoard(){
       System.out.println("   A B C D E F G H I J");
       for (int i=0; i<LENGTH; i++){
@@ -35,22 +27,18 @@ public class Board
       }
    }
 
-   public void setShip(){
+   public void addShip(Ship ship){
+      this.ships[shipcount] = ship;
+      shipcount ++;
+   }
+
+   public void setShip(Ship ship){
       int x,y;
-      for (int i=0; i<4; i++){
-         x = battleship.getPosition(i,0);
-         y = battleship.getPosition(i,1);
-         board[x][y] = air;
+      for (int i=0; i<ship.length; i++){
+         x = ship.getPosition(i,0);
+         y = ship.getPosition(i,1);
+         board[x][y] = ship.symbol;
       }
       System.out.println("ship set!");
    }
-
-   public void addShip(Battleship battleship){
-      this.battleship = battleship;
-   }
-
-   public void addAC(Aircraftcarrier aircraftcarrier){
-      this.aircraftcarrier = aircraftcarrier;
-   }
-
 }
