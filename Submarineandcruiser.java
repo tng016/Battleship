@@ -1,9 +1,9 @@
-public class Battleship extends Ship
+public class Submarineandcruiser extends Ship
 {  
    // constructor
-   public Battleship(){
+   public Submarineandcruiser(){
       super();
-      length = 4;
+      length = 3;
    }
 
    public void printPosition(){
