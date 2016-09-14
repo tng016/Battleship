@@ -6,6 +6,7 @@ public class BattleshipApp
 	{
 		Scanner sc = new Scanner(System.in);
 		int xStart=0,xEnd=0,yStart=0,yEnd=0;
+		String inputStr;
 
 		System.out.println("===================");
 		System.out.println("=== BattleShips ===");
@@ -29,18 +30,16 @@ public class BattleshipApp
 		{
 			System.out.println("Where would you like to place your "+ ship.name);
 			do{
-				System.out.println("row start");
-				xStart = sc.nextInt();
-				System.out.println("col start");
-				yStart = sc.nextInt();
-				System.out.println("row end");
-				xEnd = sc.nextInt();
-				System.out.println("col end");
-				yEnd = sc.nextInt();
+				System.out.println("start");
+				inputStr = sc.next();
+				xStart = chartoint(inputStr.charAt(0));
+				yStart = Character.getNumericValue(inputStr.charAt(1));
+				System.out.println("end");
+				inputStr = sc.next();
+				xEnd = chartoint(inputStr.charAt(0));
+				yEnd = Character.getNumericValue(inputStr.charAt(1));
 				ship.setPosition(xStart,yStart,xEnd,yEnd);
 			} while(checkInput(xStart,yStart,xEnd,yEnd,ship,board) == -1);
-			
-			ship.setPosition(xStart,yStart,xEnd,yEnd);
 			board.setShip(ship);
 			board.printBoard();
 		}
@@ -49,19 +48,29 @@ public class BattleshipApp
 
 	public static int checkInput(int xStart,int yStart,int xEnd,int yEnd,Ship ship,Board board)
 	{
-		if (((xEnd-xStart+1)==ship.length && yEnd == yStart)||((yEnd-yStart+1)==ship.length && xEnd == xStart))
-			for (int i=0;i<ship.length;i++)
-			{
-				if(board.isOccupied(ship.getPosition(i,0),ship.getPosition(i,1))==0)
-					return 0;
-				else
-					System.out.println("This spot is occupied!");
-					return -1;
-			}
+		if(xStart>0 && yStart>0 && xEnd<11 && yEnd<11){
+			if (((xEnd-xStart+1)==ship.length && yEnd == yStart)||((yEnd-yStart+1)==ship.length && xEnd == xStart))
+				for (int i=0;i<ship.length;i++)
+				{
+					if(board.isOccupied(ship.getPosition(i,0),ship.getPosition(i,1))==0)
+						return 0;
+					else
+						System.out.println("This spot is occupied!");
+						return -1;
+				}
 			
-		else{
-			System.out.println("Error Input");
+			else{
+				System.out.println("Error Input");
+			}
+			return -1;
 		}
-		return -1;
+		else
+			System.out.println("Out of Range!");
+			return -1;
+	}
+
+	public static int chartoint(char c)
+	{
+		return Character.toUpperCase(c) - 64;	
 	}
 }

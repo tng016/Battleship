@@ -17,9 +17,9 @@ public class Board
 
    //Prints what is on the board now
 	public void printBoard(){
-      System.out.println("   A B C D E F G H I J");
+      System.out.println("   1 2 3 4 5 6 7 8 9 10");
       for (int i=0; i<LENGTH; i++){
-         System.out.printf("%2d",i+1);
+         System.out.printf("%2c",i+97);
          for (int j=0; j<LENGTH; j++){
             System.out.printf("|"+board[i][j]);
          }
