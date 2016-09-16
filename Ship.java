@@ -1,9 +1,11 @@
 public class Ship
 {
-   protected int length;
+   public int length;
    public int[][] position; 
    public String name;
    public char symbol;
+   public int damage=0;
+   public boolean isSunk = false;
    
    // constructor
    public Ship(int length,String name){
@@ -16,8 +18,8 @@ public class Ship
       position = new int[length][2];
       if (startx == endx){
          for (int i=0; i<length; i++){
-            position[i][0] = startx-1;
-            position[i][1] = starty + i-1;
+            position[i][0] = startx;
+            position[i][1] = starty + i;
          }  
       }
       else{
@@ -47,5 +49,14 @@ public class Ship
 
    public void setName(String name){
       this.name = name;
+   }
+
+   public boolean checkSunk(){
+      if(damage == length){
+         this.isSunk = true;
+         return true;
+      }
+      else
+         return false;
    }
 }
