@@ -24,31 +24,10 @@ public class Ship
       }
       else{
          for (int i=0; i<length; i++){
-            position[i][0] = startx + i-1;
-            position[i][1] = starty-1;
+            position[i][0] = startx + i;
+            position[i][1] = starty;
          }  
       }
-   }
-
-   public void printPosition(){
-      for (int i=0; i<length; i++){
-         for (int j=0; j<2; j++){
-            System.out.printf("%d",position[i][j]);
-         }
-         System.out.println(" ");
-      }
-   }
-
-   public int getPosition(int x,int y){
-      return position[x][y];
-   }
-
-   public int getLength(){
-      return length;
-   }
-
-   public void setName(String name){
-      this.name = name;
    }
 
    public boolean checkSunk(){

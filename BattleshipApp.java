@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class BattleshipApp
 {
 	public static Scanner sc = new Scanner(System.in);
+	public static final char EMPTY = '_';
+   	public static final char HIT = 'X';
+   	public static final char MISS = 'O';
 
 	public static void main(String[] args)
 	{
@@ -53,31 +56,12 @@ public class BattleshipApp
 			}
 			turn_number++;
 		}	while(gameover(whiteBoard,blackBoard) == 0);
-		printBothBoards(blackAttackWhite,whiteAttackBlack);
+		//printBothBoards(blackAttackWhite,whiteAttackBlack);
+		printFinal(whiteBoard,blackBoard,whiteAttackBlack,blackAttackWhite);
+
 	}
 
-	public static int checkInput(int xStart,int yStart,int xEnd,int yEnd,Ship ship,Board board)
-	{
-		if(xStart>=0 && yStart>=0 && xEnd<10 && yEnd<10){
-			if (((xEnd-xStart+1)==ship.length && yEnd == yStart)||((yEnd-yStart+1)==ship.length && xEnd == xStart))
-				for (int i=0;i<ship.length;i++)
-				{
-					if(board.isOccupied(ship.getPosition(i,0),ship.getPosition(i,1))==0)
-						return 0;
-					else
-						System.out.println("This spot is occupied!");
-						return -1;
-				}
-			
-			else{
-				System.out.println("Error Input");
-			}
-			return -1;
-		}
-		else
-			System.out.println("Out of Range!");
-			return -1;
-	}
+
 
 	public static int chartoint(char c)
 	{
@@ -113,6 +97,30 @@ public class BattleshipApp
 		}
 	}
 
+	public static int checkInput(int xStart,int yStart,int xEnd,int yEnd,Ship ship,Board board)
+	{
+		if(xStart>=0 && yStart>=0 && xEnd<10 && yEnd<10){
+			if (((xEnd-xStart+1)==ship.length && yEnd == yStart)||((yEnd-yStart+1)==ship.length && xEnd == xStart))
+				for (int i=0;i<ship.length;i++)
+				{
+					if(board.isOccupied(ship.position[i][0],ship.position[i][1])==0)
+						return 0;
+					else
+						System.out.println("This spot is occupied!");
+						return -1;
+				}
+			
+			else{
+				System.out.println("Error Input");
+				return -1;
+			}
+		}
+		else
+			System.out.println("Out of Range!");
+		return -1;
+		
+	}
+
 	public static void printBothBoards(Board white,Board black){
 		System.out.printf(" ===== White's Ships ===== %10c ===== Black's Ships =====\n",' ');
     	System.out.printf("   0 1 2 3 4 5 6 7 8 9  %15c 0 1 2 3 4 5 6 7 8 9\n",' ');
@@ -124,6 +132,27 @@ public class BattleshipApp
     	    System.out.printf("%2c",i+97);
     	    for (int k=0; k<10; k++)
     	        System.out.printf("|"+black.board[i][k]);
+    	    System.out.println("|");
+      	}
+   	}
+
+   	public static void printFinal(Board white,Board black,Board whiteAttackBlack,Board blackAttackWhite){
+		System.out.printf(" ===== White's Ships ===== %10c ===== Black's Ships =====\n",' ');
+    	System.out.printf("   0 1 2 3 4 5 6 7 8 9  %15c 0 1 2 3 4 5 6 7 8 9\n",' ');
+    	for (int i=0; i<10; i++){
+    	    System.out.printf("%2c",i+97);//prints A-J
+    	    for (int j=0; j<10; j++)
+    	    	if (blackAttackWhite.board[i][j]== MISS ||blackAttackWhite.board[i][j]== HIT)
+    	        	System.out.printf("|"+blackAttackWhite.board[i][j]);
+    	        else
+    	        	System.out.printf("|"+white.board[i][j]);
+    	    System.out.printf("|%14c",' ');
+    	    System.out.printf("%2c",i+97);
+    	    for (int k=0; k<10; k++)
+    	        if (whiteAttackBlack.board[i][k]== MISS ||whiteAttackBlack.board[i][k]== HIT)
+    	        	System.out.printf("|"+whiteAttackBlack.board[i][k]);
+    	        else
+    	        	System.out.printf("|"+black.board[i][k]);
     	    System.out.println("|");
       	}
    	}
@@ -154,10 +183,10 @@ public class BattleshipApp
 			xInput = chartoint(inputStr.charAt(0));
 			yInput = Character.getNumericValue(inputStr.charAt(1));
 		} while(checkFireInput(xInput,yInput,display) == -1);
-		if (attacking.board[xInput][yInput] == attacking.empty)
-			display.board[xInput][yInput] = display.miss;
+		if (attacking.board[xInput][yInput] == EMPTY)
+			display.board[xInput][yInput] = MISS;
 		else{
-			display.board[xInput][yInput] = display.hit;
+			display.board[xInput][yInput] = HIT;
 			shiptemp = attacking.getShip(xInput,yInput);
 			shiptemp.damage++;
 
@@ -173,7 +202,7 @@ public class BattleshipApp
 	public static int checkFireInput(int x,int y,Board board)
 	{
 		if(x>=0 && y>=0 && x<10 && y<10){
-			if (board.board[x][y] == board.miss || board.board[x][y] == board.hit){
+			if (board.board[x][y] == MISS || board.board[x][y] == HIT){
 				System.out.println("You've fired there before!");
 				return -1;
 			}

@@ -4,16 +4,12 @@ public class Board
    public int shipcount = 0;
    public char[][] board = new char[10][10];
    public Ship[] ships = new Ship[5];
-   public char empty = '_';
-   public char hit = 'X';
-   public char miss = 'O';
-
 
    //Constructor
    public Board(){
       for (int i=0;i<LENGTH;i++){
          for (int j=0;j<LENGTH;j++){
-            board[i][j] = empty;
+            board[i][j] = '_';
          }
       }
    }
@@ -38,21 +34,18 @@ public class Board
    public void setShip(Ship ship){
       int x,y;
       for (int i=0; i<ship.length; i++){
-         x = ship.getPosition(i,0);
-         y = ship.getPosition(i,1);
+         x = ship.position[i][0];
+         y = ship.position[i][1];
          board[x][y] = ship.symbol;
       }
       System.out.println("ship set!");
    }
 
    public int isOccupied(int x, int y){
-      if(board[x][y] == empty)
-         return 0;
-      else
-         return -1;
+      return (board[x][y] == '_') ? 0 : -1;
    }
 
-      public Ship getShip(int x, int y){
+   public Ship getShip(int x, int y){
       for(Ship ship : ships){
          for(int i=0;i<ship.length;i++){
             if (ship.position[i][0] == x && ship.position[i][1] == y)
