@@ -1,19 +1,21 @@
 Readme
 
-My Super Bo Liao Project
 
-======= Under Construction ==========
+======= BattleShips ==========
 
-Current features:
+Created: September 2016
 
-Printing battleship board
-Placing all 5 ships onto board with error checking
+Status: Complete
+
+We just started learning the basics of Java (Abstraction, Encapsulation, Inheritance, Polymorphism) and I decided to put what I learnt into practice by re-designing the classical battleship board game (I got stuck halfway through and decided to first do a Tic Tac Toe game as a stepping stone to this project. See Profile for the Tic Tac Toe game). Enjoy!
 
 
-To Do List:
+==== Possible Improvements to project: ====
 
-Create board for white and black Player
+Different game modes
 
-start shooting cannonballs
+Implement Exception Handling 
+
+Play using a GUI
 
 create a AI to play against
